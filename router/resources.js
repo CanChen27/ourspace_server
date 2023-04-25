@@ -1,10 +1,10 @@
 const express = require("express");
 
 const router = express();
-const db = require("../ddbb");
+const db = require("../ddbb/index");
 
 router.get("/", (req, res) => {
-  const queryStr = `select * from recursos`;
+  const queryStr = `select * from recurso`;
   db.query(queryStr, (err, results) => {
     if (err) {
       return res.cc(err);
@@ -20,15 +20,21 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/search", (req, res) => {
-  const queryStr = `SELECT value FROM dbgspace.recursos where value LIKE CONCAT('%', ?,'%');`;
+router.get("/filter", (req, res) => {
+  // console.log(">>>req.param", req);
 
-  const query = req.query;
-  db.query(queryStr, [query.keyWord], (err, results) => {
+  console.log(">>>req.param", req.param);
+  console.log(">>>req.query", req.query);
+  var param = req.query;
+  var queryStr = `select * 
+                  from my_db_01.recurso R join my_db_01.tipo_recurso T on R.tipo = T.id_tipo_recurso
+                  where tipo=?;`;
+  console.log(">>>queryStr",param.type);
+  db.query(queryStr, param.type, (err, results) => {
     if (err) {
       return res.cc(err);
     }
-
+    console.log(">>>results length", results.length)
     if (results.length > 0) {
       return res.cc({ status: 200, data: results });
     }
@@ -39,15 +45,10 @@ router.get("/search", (req, res) => {
   });
 });
 
-router.get("/filter", (req, res) => {
-  console.log(">>>>>>>>", req.query);
+router.get("/search", (req, res) => {
+  const queryStr = `SELECT value FROM dbgspace.recursos where value LIKE CONCAT('%', ?,'%');`;
 
-  var queryStr = `SELECT * FROM dbgspace.recursos;`;
   const query = req.query;
-  if (query.keyWord !== "Default") {
-    queryStr = `SELECT * FROM dbgspace.recursos WHERE tipo=?;`;
-  }
-  console.log(queryStr);
   db.query(queryStr, [query.keyWord], (err, results) => {
     if (err) {
       return res.cc(err);

@@ -1,7 +1,7 @@
 const express = require("express");
 
 const router = express();
-const db = require("../ddbb");
+const db = require("../ddbb/index");
 
 router.get("/titleInfo", (req, res) => {
   const queryStr = `SELECT caracteristica as carac

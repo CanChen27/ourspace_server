@@ -1,7 +1,7 @@
 const express = require("express");
 
 const router = express();
-const db = require("../ddbb");
+const db = require("../ddbb/index");
 
 router.get("/", (req, res) => {
   const queryStr = `select * from recursos`;

@@ -19,14 +19,14 @@ app.use(
 );
 
 //'intermediario' siempre antes de los routers
-const { expressjwt: expressJWT } = require("express-jwt");
-const config = require("./config");
+// const { expressjwt: expressJWT } = require("express-jwt");
+// const config = require("./config");
 
-app.use(
-  expressJWT({ secret: config.jwtSecretKey, algorithms: ["HS256"] }).unless({
-    path: [/^\/api/],
-  })
-);
+// app.use(
+//   expressJWT({ secret: config.jwtSecretKey, algorithms: ["HS256"] }).unless({
+//     path: [/^\/api/],
+//   })
+// );
 
 app.use((req, res, next) => {
   res.cc = function (err, status = 1) {
@@ -55,13 +55,13 @@ app.use("/api/resources/comments", comments_router);
 // app.use("/my/admin", admin_router);
 
 //error
-app.use((err, req, res, next) => {
-  if (err instanceof joi.Validation)
-    return res.send({ status: 100, message: err.message });
+// app.use((err, req, res, next) => {
+//   if (err instanceof joi.Validation)
+//     return res.send({ status: 100, message: err.message });
 
-  if (err.name === "UnauthorizedError")
-    return res.send({ status: 100, message: "Error en la autenticacion" });
-});
+//   if (err.name === "UnauthorizedError")
+//     return res.send({ status: 100, message: "Error en la autenticacion" });
+// });
 
 app.listen(3770, () => {
   console.log("servidor api corriendo en http://localhost:3770");
