@@ -38,6 +38,9 @@ app.use((req, res, next) => {
   next();
 });
 
+
+console.log("cchen>> router")
+
 //routers
 const resources_router = require("./router/resources");
 app.use("/api/resources", resources_router);
