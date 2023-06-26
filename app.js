@@ -2,6 +2,13 @@ const express = require("express");
 
 const app = express();
 
+const jwt = require('jsonwebtoken');
+
+const expressJWT = require('express-jwt');
+
+//secret
+const secretKey = 'ourspace';
+
 //cors
 const cors = require("cors");
 
@@ -18,10 +25,12 @@ app.use(
   })
 );
 
+
 //'intermediario' siempre antes de los routers
 // const { expressjwt: expressJWT } = require("express-jwt");
 // const config = require("./config");
 
+//al realizar incorporar expresJWT user tiene un nuevo parámetro req.user
 // app.use(
 //   expressJWT({ secret: config.jwtSecretKey, algorithms: ["HS256"] }).unless({
 //     path: [/^\/api/],
