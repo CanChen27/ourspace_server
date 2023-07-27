@@ -30,9 +30,9 @@ const config = require("./config");
 app.use(jwt({ secret: config.secretKey, algorithms: ["HS256"] }).unless({path: [/^\/api/]}));
 
 app.use((req, res, next) => {
-  res.cc = function (err, status = 1) {
+  res.cc = function (err, code = 1) {
     res.send({
-      status,
+      code,
       message: err instanceof Error ? err.message : err,
     });
   };
@@ -62,8 +62,12 @@ app.use("/api", userRouter);
 const admin_router = require("./router/admin");
 app.use("/my/admin", admin_router);
 
+const reservas_router = require("./router/reservas");
+app.use("/my/reservas", reservas_router);
+
 const userInfo_router = require("./router/userInfo");
 app.use("/my", userInfo_router);
+
 
 //error
 app.use((err, req, res, next) => {
