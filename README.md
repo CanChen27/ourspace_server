@@ -1,16 +1,50 @@
-# DBGSpace API SERVER
+# Ourspace API SERVER Reference
 
 ### About
 
 El servidor API se encuentra en la dirección `http://localhost:3770`
 
-Las consultas que comiencen por `/api`, no necesita identificación
+Las consultas que comiencen por `/api`, `no` necesita `identificación`
 
-Las consultas que comiencen por `/my`, si necesita `identificación`
+Las consultas que comiencen por `/my`, `si` necesita `identificación`
 
-Las consultas que comiencen por `/api/publicaciones` ,aportan información sobre los recursos disponibles
 
-Las consultas `/my/admin` son sobre modificación de datos
+`/api/resources`
+##### Ruta completa /api/resources
+> Request methods
+
+- Post
+
+
+| params    | obligatory | type   | description           |
+| --------- | ---------- | ------ | --------------------- |
+| No params |            |        | Devuelve la lista de ofertas |
+
+> Response params
+
+| col1    | col2   | col3                                            |
+| ------- | ------ | ----------------------------------------------- |
+| status    | int    | the request success; 0: if success<br /> 1: fail |
+| data | string | description                                     | 
+
+
+`/api/resources/details`
+
+
+`/api/resources/comments`
+
+
+`/api`
+
+
+`/my/admin`
+
+
+`/my/reservas`
+
+
+`/my`
+
 
 ---
 
