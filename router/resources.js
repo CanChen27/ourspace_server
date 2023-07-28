@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
     }
 
     if (results.length > 0) {
-      return res.cc({ status: 200, data: results });
+      return res.send({ status: 200, data: results });
     }
 
     if (results.length == 0) {
@@ -49,27 +49,6 @@ router.get("/filter", (req, res) => {
     }
   });
 });
-
-router.get("/search", (req, res) => {
-  const queryStr = `SELECT value FROM dbgspace.recursos where value LIKE CONCAT('%', ?,'%');`;
-
-  const query = req.query;
-  db.query(queryStr, [query.keyWord], (err, results) => {
-    if (err) {
-      return res.cc(err);
-    }
-
-    if (results.length > 0) {
-      return res.cc({ status: 200, data: results });
-    }
-
-    if (results.length == 0) {
-      return res.cc({ status: 300 });
-    }
-  });
-});
-
- 
 
 const storage = multer.diskStorage({
   destination: '/home/can/Desktop/img/',
