@@ -16,7 +16,7 @@ exports.userInfo = (req, res)=>{
             return res.cc("Fallo al obtener información del usuario");
         }
         res.send({
-           code:200,
+           status:200,
            message:"Se ha obtenido la información del usuario exitosamente",
            data: results[0]
         })

@@ -37,7 +37,7 @@ exports.newReserva = (req, res)=>{
             
             //en otro caso
             res.send({
-                code:200,
+                status:200,
                 message:"Se realizado la reserva de forma exitosa"
              })
                         
@@ -85,14 +85,14 @@ exports.misReservas = (req, res)=>{
 
             if(resQuery.length < 1){
                 return res.send({
-                    code:201,
+                    status:201,
                     message:"El arrendatario no tiene reservas",
                  })
             }
             
             //en otro caso
             res.send({
-                code:200,
+                status:200,
                 message:"Se han obtenido las reservas del usuario de forma exitosa",
                 data: resQuery
              })
@@ -142,14 +142,14 @@ exports.modificarReserva = (req, res)=>{
 
             if(resQuery.length < 1){
                 return res.send({
-                    code:201,
+                    status:201,
                     message:"No existe dicha reserva",
                  })
             }
             
             //en otro caso
             res.send({
-                code:200,
+                status:200,
                 message:"Se ha modificaco la reserva de forma exitosa",
                 data: resQuery
              })
@@ -175,7 +175,7 @@ exports.cancelarReserva = (req, res)=>{
         
         //en otro caso
         res.send({
-            code:200,
+            status:200,
             message:"Se cancelado la reserva de forma exitosa"
          })
                     

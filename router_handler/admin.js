@@ -35,14 +35,14 @@ exports.misProductos = (req, res)=>{
             //en caso de que no encuentre un resultado
             if(resultsProductos.length < 1){
                 return res.send({
-                    code:201,
+                    status:201,
                     message:"El arrendador no tiene productos",
                  })
             }
             
             //en otro caso
             res.send({
-                code:200,
+                status:200,
                 message:"Se ha obtenido los productos del usuario exitosamente",
                 data: resultsProductos
              })
@@ -113,13 +113,13 @@ exports.crearProducto = (req, res)=>{
             
             //en otro caso
             res.send({
-                code:200,
+                status:200,
                 message:"Se ha creado el producto de forma exitosa"
              })
                         
         })
         // res.send({
-        //     code:200,
+        //     status:200,
         //     message:"Se ha creado el producto de forma exitosa", 
         //  })
     })
@@ -139,7 +139,7 @@ exports.eliminarProducto = (req, res)=>{
         
         //en otro caso
         res.send({
-            code:200,
+            status:200,
             message:"Se eliminado el producto de forma exitosa"
          })
                     
@@ -197,13 +197,13 @@ exports.modificarProducto = (req, res)=>{
             
             //en otro caso
             res.send({
-                code:200,
+                status:200,
                 message:"Se ha modificado el producto de forma exitosa"
              })
                         
         })
         // res.send({
-        //     code:200,
+        //     status:200,
         //     message:"Se ha creado el producto de forma exitosa", 
         //  })
     })
@@ -220,7 +220,7 @@ exports.getNormas = (req, res)=>{
         //en caso de error
         if(err) return res.cc(err);
         res.send({
-            code:200,
+            status:200,
             message:"Se han obtenido las normas",
             data: results
          })
@@ -248,13 +248,13 @@ exports.getComentarios = (req, res)=>{
 
         if(results.length < 1){
             return res.send({
-                code:201,
+                status:201,
                 message:"No tiene comentarios",
              })
         }
 
         res.send({
-            code:200,
+            status:200,
             message:"Se ha obtendio los resultados con éxito",
             data: results
          })
@@ -280,7 +280,7 @@ exports.publicarComentario = (req, res)=>{
         if(err) return res.cc(err);
 
         res.send({
-            code:200,
+            status:200,
             message:"Se ha publicado el comentario con éxito"
          })
  

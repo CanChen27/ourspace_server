@@ -18,14 +18,14 @@ exports.regUser = (req, res)=>{
     db.query(sqlSearch, userinfo.username, (err, results)=>{
         // si error
         if(err){
-            return res.send({code:1, message:err.message});
+            return res.send({status:1, message:err.message});
         }
         //si ya existe
         if(results.length > 0){ 
             userinfo.password = bcrypt.hashSync('contraseña2', 10);
 
             console.log("token usuario aaaaaaaaaaaaa::", userinfo.password);
-            return res.send({code:1, message:"Nombre usuario ya existe"}); 
+            return res.send({status:1, message:"Nombre usuario ya existe"}); 
             
         } 
         
@@ -42,14 +42,14 @@ exports.regUser = (req, res)=>{
         db.query(sqlInsert, data, (err, resInsert)=>{
             // si error
             if(err){
-                return res.send({code:1, message:err.message});
+                return res.send({status:1, message:err.message});
             }
             
             //si filas modificadas distinto de uno
-            if(resInsert.affectedRows !== 1) return res.send({code:1, message:"Error al crear un usuario"}); 
+            if(resInsert.affectedRows !== 1) return res.send({status:1, message:"Error al crear un usuario"}); 
 
             //si todo ha ido bien
-            // res.send({code:0, message:"El Usuario ha sido registrado"}); 
+            // res.send({status:0, message:"El Usuario ha sido registrado"}); 
             console.log("userReg:: El Usuario ha sido registrado");
 
 
@@ -59,11 +59,11 @@ exports.regUser = (req, res)=>{
             db.query(getUserData, userinfo.username, (err, resUserData)=>{
                 // si error
                 if(err){
-                    return res.send({code:1, message:err.message});
+                    return res.send({status:1, message:err.message});
                 }
                 
                 //si filas modificadas distinto de uno
-                if(resUserData.affectedRows !== 1) return res.send({code:1, message:"getUserData", data: resUserData}); 
+                if(resUserData.affectedRows !== 1) return res.send({status:1, message:"getUserData", data: resUserData}); 
     
                 //si todo ha ido bien
                 
@@ -74,7 +74,7 @@ exports.regUser = (req, res)=>{
                 db.query(sqlArrendador, [resUserData.id, "Privado"], (err, resInsert)=>{
                     // si error
                     if(err){
-                        return res.send({code:1, message:err.message});
+                        return res.send({status:1, message:err.message});
                     }
                 console.log("sqlArrendador");
     
@@ -84,13 +84,13 @@ exports.regUser = (req, res)=>{
                 // db.query(sqlArrendatarios, [resUserData.id], (err, resInsert)=>{
                 //     // si error
                 //     if(err){
-                //         return res.send({code:1, message:err.message});
+                //         return res.send({status:1, message:err.message});
                 //     }
                 // console.log("sqlArrendatarios");
     
                 // }) 
     
-                res.send({code:0, message:"El Usuario ha sido registrado"}); 
+                res.send({status:200, message:"El Usuario ha sido registrado"}); 
             }) 
         }) 
 
@@ -103,7 +103,7 @@ exports.login = (req, res)=>{
     a = bcrypt.hashSync('contraseña3', 10);
     console.log("hash usuario aaaaaaaaaaaaa::", a);
     if(!userinfo.username || !userinfo.password){
-        return res.send({code:1, message:"Usuario contraseña incorrecto"});
+        return res.send({status:1, message:"Usuario contraseña incorrecto"});
     }
     
     //query
@@ -111,12 +111,12 @@ exports.login = (req, res)=>{
     db.query(sqlSearch, userinfo.username, (err, results)=>{
         // si error
         if(err){
-            return res.send({code:1, message:err.message});
+            return res.send({status:1, message:err.message});
         }
         //si no encontrado
         if(results.length !== 1){ 
 
-            return res.send({code:1, message:"Nombre usuario no existe"}); 
+            return res.send({status:1, message:"Nombre usuario no existe"}); 
             
         } 
         console.log("usuario", userinfo.password);
@@ -131,7 +131,7 @@ exports.login = (req, res)=>{
         // }
         //si no iguales
         if(!ret){
-            return res.send({code:300, message:"Contraseña incorrecta"})
+            return res.send({status:300, message:"Contraseña incorrecta"})
         }
         //es6 sobreescribir datos innecesarios para general el token
         const user = {...results[0], password: '', user_pic: ''};
@@ -142,6 +142,6 @@ exports.login = (req, res)=>{
 
         //mandar token al cliente
         //IMPORTANTE: hay que añadir prefijo 'Bearer '
-        res.send({code:200, message:"Login sucess", data:{ token: 'Bearer '+ tokenStr}}); 
+        res.send({status:200, message:"Login sucess", data:{ token: 'Bearer '+ tokenStr}}); 
     }) 
 };

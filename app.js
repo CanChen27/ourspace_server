@@ -42,22 +42,15 @@ app.use((req, res, next) => {
 
 console.log("cchen>> router")
 
-//routers
-const resources_router = require("./router/resources");
-app.use("/api/resources", resources_router);
-
-const details_router = require("./router/details");
-app.use("/api/resources/details", details_router);
-
-const comments_router = require("./router/comments");
-app.use("/api/resources/comments", comments_router);
-
-
-const userRouter = require('./router/user');
-app.use("/api", userRouter);
 
 // const user_router = require("./router/user");
 // app.use("/api", user_router);
+// *****
+const userRouter = require('./router/user');
+app.use("/api", userRouter);
+
+const resources_router = require("./router/resources");
+app.use("/api/resources", resources_router);
 
 const admin_router = require("./router/admin");
 app.use("/my/admin", admin_router);
