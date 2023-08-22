@@ -230,40 +230,7 @@ exports.getNormas = (req, res)=>{
 
 };
 
-
-exports.getComentarios = (req, res)=>{
-    const data = req.query;  
-
-    console.log("getComentarios", data);
-
-    const sqlComentarios = `SELECT * 
-                FROM comentarios 
-                where idOferta = ?`;
-
-    //coger el id del usuario y encontrar su id arrendador si es que tiene 
-
-    db.query (sqlComentarios ,data.idOferta, (err, results)=>{
-        //en caso de error
-        if(err) return res.cc(err);
-
-        if(results.length < 1){
-            return res.send({
-                status:201,
-                message:"No tiene comentarios",
-             })
-        }
-
-        res.send({
-            status:200,
-            message:"Se ha obtendio los resultados con éxito",
-            data: results
-         })
  
-    })
-
-
-};
-
 
 exports.publicarComentario = (req, res)=>{
     const data = req.body; 

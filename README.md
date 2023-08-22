@@ -49,6 +49,24 @@ Descripción: Devuelve una lista de ofertas según tipo de recurso buscado.
 | message | string | Descripción en caso de error   | 
 
 
+#### Ruta completa: `/api/resources/comentarios`
+Descripción: Devuelve una lista de ofertas según tipo de recurso buscado. 
+
+> Método: Get
+
+| Parametros    | Obligatorio | Tipo   | Descripción           |
+| --------- | ---------- | ------ | --------------------- |
+| idOferta  |     si       |    int    | Id de la oferta de la cual se quiere obtener los comentarios |
+
+> Respuesta
+
+| Parámetros    | Tipo   | Descripción                                            |
+| ------- | ------ | ----------------------------------------------- |
+| status    | int    | Devuelve 1 en caso de error.<br /> Devuelve 200 en caso de éxito.<br /> Devuelve 201 en caso de no encontrar resultados.|
+| data | array | Array de ofertas   
+| message | string | Descripción en caso de error   | 
+
+
 #### Ruta completa: `/api/resources/img`
 Descripción: Subir imagenes al servidor.
 
@@ -213,24 +231,6 @@ Descripción: Devuelve la lista de normas.
 | data | array | Array de normas                                      | 
 | message | string | Descripción en caso de error   | 
 
-
-
-#### Ruta completa: `/my/admin/getComentarios`
-Descripción: Devuelve la lista de comentarios de una oferta especificada.
-
-> Método: Get
-
-| Parametros    | Obligatorio | Tipo   | Descripción           |
-| --------- | ---------- | ------ | --------------------- |
-|   idOferta |    Si        |   int     |     idOferta de la cual se quiere obtener los comentarios     |
-
-> Respuesta
-
-| Parámetros    | Tipo   | Descripción                                            |
-| ------- | ------ | ----------------------------------------------- |
-| status    | int    | Devuelve 1 en caso de error.<br /> Devuelve 200 en caso de éxito |
-| data | array | Array de comentarios                                      | 
-| message | string | Descripción en caso de error   | 
 
 
 #### Ruta completa: `/my/admin/publicarComentario`

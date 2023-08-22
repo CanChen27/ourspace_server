@@ -58,6 +58,12 @@ app.use("/my/admin", admin_router);
 const reservas_router = require("./router/reservas");
 app.use("/my/reservas", reservas_router);
 
+const favoritos_router = require("./router/favoritos");
+app.use("/my/favoritos", favoritos_router);
+
+const notificaciones_router = require("./router/notificaciones");
+app.use("/my/notificaciones", notificaciones_router);
+
 const userInfo_router = require("./router/userInfo");
 app.use("/my", userInfo_router);
 

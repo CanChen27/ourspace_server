@@ -5,6 +5,8 @@ const path = require('path');
 
 const router = express();
 const db = require("../ddbb/index"); 
+const resources_handler = require('../router_handler/resources');
+
 
 router.get("/", (req, res) => {
   console.log("cchen>> resources-usuarios")
@@ -50,6 +52,8 @@ router.get("/filter", (req, res) => {
   });
 });
 
+router.get("/comentarios", resources_handler.comentarios);
+
 const storage = multer.diskStorage({
   destination: '/home/can/Desktop/img/',
   filename: function (req, file, cb) {
@@ -80,5 +84,7 @@ router.post("/img",upload.single('img'), (req, res) => {
   //   console.error(err)
   // })
 });
+
+
 
 module.exports = router;

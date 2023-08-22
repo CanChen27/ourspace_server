@@ -20,8 +20,7 @@ router.post('/eliminarProducto', admin_handler.eliminarProducto);
 router.post('/modificarProducto', admin_handler.modificarProducto);
 
 router.get('/getNormas', admin_handler.getNormas);
-
-router.get('/getComentarios', admin_handler.getComentarios);
+ 
 router.post('/publicarComentario', admin_handler.publicarComentario);
 
 
