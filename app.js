@@ -67,6 +67,9 @@ app.use("/my/notificaciones", notificaciones_router);
 const userInfo_router = require("./router/userInfo");
 app.use("/my", userInfo_router);
 
+const root_router = require("./router/root");
+app.use("/my/root", root_router);
+
 
 //error
 app.use((err, req, res, next) => {

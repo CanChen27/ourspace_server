@@ -55,7 +55,7 @@ exports.misProductos = (req, res)=>{
  
 
 exports.crearProducto = (req, res)=>{
-    const idArrendador = req.auth.id;
+    const idUsuario = req.auth.id;
     const sqlIdArrendador = `SELECT * 
                 FROM arrendadores 
                 where idusuario=?`;
@@ -63,7 +63,7 @@ exports.crearProducto = (req, res)=>{
     //coger el id del usuario y encontrar su id arrendador si es que tiene
     console.log(">>crearProducto"); 
 
-    db.query (sqlIdArrendador, idArrendador, (err, results)=>{
+    db.query (sqlIdArrendador, idUsuario, (err, results)=>{
         const data = req.body;
         const imagenes = req.files;
         console.log("$$data", data);
@@ -98,16 +98,18 @@ exports.crearProducto = (req, res)=>{
         }
 
         //en caso de éxito
+        let idArrendador = results[0].idArrendador;
         console.log(">>idArrendador", results[0].idArrendador);
+
         //si eres arrendador se devolverá un id_arrendador 
         //con el que se guardará el nuevo producto
  
     
-        const sqlIdArrendador = `INSERT INTO ofertas (idTipo, idArrendador, nombre, descripcion, precio, img, normas, plazoOferta)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
+        const sqlIdArrendador = `INSERT INTO ofertas (idTipo, idArrendador, nombre, descripcion, precio, img, normas, plazoOferta, nArrendatarios)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?,?);`;
  
         console.log(">>>>>>>>>>><", data);
-        db.query (sqlIdArrendador, [1, idArrendador, data.nombre, data.descripcion, data.precio, JSON.stringify(arrayUuid), JSON.stringify(data.normasSeleccionadas), parseInt(data.plazoOferta)], (err, resQuery)=>{
+        db.query (sqlIdArrendador, [1, idArrendador, data.nombre, data.descripcion, data.precio, JSON.stringify(arrayUuid), JSON.stringify(data.normasSeleccionadas), parseInt(data.plazoOferta), data.nArrendatarios], (err, resQuery)=>{
             //en caso de error
             if(err) return res.cc(err);
             

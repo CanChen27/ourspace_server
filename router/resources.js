@@ -10,7 +10,7 @@ const resources_handler = require('../router_handler/resources');
 
 router.get("/", (req, res) => {
   console.log("cchen>> resources-usuarios")
-  const queryStr = `select * from ofertas`;
+  const queryStr = `select * from ofertas o join arrendadores a on o.idArrendador = a.idArrendador`;
   // const queryStr = `select * from usuarios`;
   db.query(queryStr, (err, results) => {
     if (err) {
@@ -27,17 +27,61 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/filter", (req, res) => {
+router.get("/filterTipo", (req, res) => {
   // console.log(">>>req.param", req);
 
-  console.log(">>>req.param", req.param);
-  console.log(">>>req.query", req.query);
-  var param = req.query;
+  idTipo = req.query.tipo;
+  console.log("filterTipo", idTipo);  
   var queryStr = `select * 
-                  from ourspace.ofertas R join ourspace.tipoofertas T on R.idTipo = T.id
-                  where R.idTipo=?;`;
-  console.log(">>>queryStr",param.type);
-  db.query(queryStr, param.type, (err, results) => {
+                  from ofertas 
+                  where idTipo=?;`; 
+  db.query(queryStr, idTipo, (err, results) => {
+    if (err) {
+      return res.cc(err);
+    }
+    console.log(">>>results length", results.length)
+    if (results.length > 0) {
+      return res.cc({ status: 200, data: results });
+    }
+
+    if (results.length == 0) {
+      return res.cc({ status: 300 });
+    }
+  });
+});
+
+router.get("/filterPeriodo", (req, res) => {
+  // console.log(">>>req.param", req);
+
+  idTipo = req.query.tipo;
+  console.log("filterTipo", idTipo);  
+  var queryStr = `select * 
+                  from ofertas 
+                  where plazoOferta=?;`; 
+  db.query(queryStr, idTipo, (err, results) => {
+    if (err) {
+      return res.cc(err);
+    }
+    console.log(">>>results length", results.length)
+    if (results.length > 0) {
+      return res.cc({ status: 200, data: results });
+    }
+
+    if (results.length == 0) {
+      return res.cc({ status: 300 });
+    }
+  });
+});
+
+router.get("/listaCompartir", (req, res) => {
+  // console.log(">>>req.param", req);
+
+  idTipo = req.query.tipo;
+  console.log("filterTipo", idTipo);  
+  var queryStr = `select * 
+                  from reservas r join ofertas o on r.idOferta=o.idOfertas
+                  where compartir='Buscar gente';`; 
+  db.query(queryStr, idTipo, (err, results) => {
     if (err) {
       return res.cc(err);
     }

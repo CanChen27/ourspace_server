@@ -22,7 +22,7 @@ exports.regUser = (req, res)=>{
         }
         //si ya existe
         if(results.length > 0){ 
-            userinfo.password = bcrypt.hashSync('contraseña2', 10);
+            userinfo.password = bcrypt.hashSync('contraseña3', 10);
 
             console.log("token usuario aaaaaaaaaaaaa::", userinfo.password);
             return res.send({status:1, message:"Nombre usuario ya existe"}); 
@@ -37,7 +37,8 @@ exports.regUser = (req, res)=>{
             "username":userinfo.username,
             "password": userinfo.passwd, 
             "phone": userinfo.phone,
-            "email": userinfo.email
+            "email": userinfo.email,
+            "monedas": 1000,
         }
         db.query(sqlInsert, data, (err, resInsert)=>{
             // si error
@@ -51,47 +52,8 @@ exports.regUser = (req, res)=>{
             //si todo ha ido bien
             // res.send({status:0, message:"El Usuario ha sido registrado"}); 
             console.log("userReg:: El Usuario ha sido registrado");
-
-
-            const getUserData = 'select * from usuarios where username=?';
-            console.log("getUserData userinfo", userinfo)
-
-            db.query(getUserData, userinfo.username, (err, resUserData)=>{
-                // si error
-                if(err){
-                    return res.send({status:1, message:err.message});
-                }
-                
-                //si filas modificadas distinto de uno
-                if(resUserData.affectedRows !== 1) return res.send({status:1, message:"getUserData", data: resUserData}); 
-    
-                //si todo ha ido bien
-                
-                console.log("getUserData", resUserData);
-    
-                
-                const sqlArrendador = `INSERT INTO arrendadores (idUsuario, arrendadorescol) VALUES (?, ?);`;
-                db.query(sqlArrendador, [resUserData.id, "Privado"], (err, resInsert)=>{
-                    // si error
-                    if(err){
-                        return res.send({status:1, message:err.message});
-                    }
-                console.log("sqlArrendador");
-    
-                }) 
-
-                // const sqlArrendatarios = `INSERT INTO arrendatarios (idUsuario) VALUES (?)`;
-                // db.query(sqlArrendatarios, [resUserData.id], (err, resInsert)=>{
-                //     // si error
-                //     if(err){
-                //         return res.send({status:1, message:err.message});
-                //     }
-                // console.log("sqlArrendatarios");
-    
-                // }) 
-    
-                res.send({status:200, message:"El Usuario ha sido registrado"}); 
-            }) 
+ 
+            res.send({status:200, message:"El Usuario ha sido registrado"}); 
         }) 
 
     }) 
@@ -100,7 +62,7 @@ exports.regUser = (req, res)=>{
 exports.login = (req, res)=>{ 
     const userinfo = req.body;
     console.log(">>loginuser:", userinfo);
-    a = bcrypt.hashSync('contraseña3', 10);
+    a = bcrypt.hashSync(userinfo.password, 10);
     console.log("hash usuario aaaaaaaaaaaaa::", a);
     if(!userinfo.username || !userinfo.password){
         return res.send({status:1, message:"Usuario contraseña incorrecto"});

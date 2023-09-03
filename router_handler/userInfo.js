@@ -7,7 +7,7 @@ const config = require('../config');
 
 exports.userInfo = (req, res)=>{
     console.log(">>user token", req.auth);
-    const sql = `select id, username, email, user_pic, phone
+    const sql = `select id, username, email, phone, monedas, arrendador
                 from usuarios
                 where id=?`;
     db.query(sql, req.auth.id, (err, results)=>{
