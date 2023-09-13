@@ -126,7 +126,7 @@ Descripción: iniciar seción.
 
 | Parámetros    | Tipo   | Descripción                                            |
 | ------- | ------ | ----------------------------------------------- |
-| status    | int    | Devuelve 1 en caso de error. <br />  Devuelve 200 en caso de éxito | 
+| status    | int    | Devuelve 1 en caso de error. <br />  Devuelve 200 en caso de éxito  <br/> Devuelve 300 en caso de que la contraseña sea incorrecta | 
 | message | string | Descripción del status devuelto   | 
 | data  |  string     | En caso se éxito, data contiene el TOKEN |
 
