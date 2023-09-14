@@ -179,16 +179,15 @@ exports.modificarProducto = (req, res)=>{
 
 
         const sqlUpdate = `UPDATE ofertas
-        SET idTipo = ?,
-            idArrendador = ?,
+        SET 
+           
             nombre = ?,
             descripcion = ?,
-            precio = ?,
-            img = ?,
+            precio = ?, 
             normas = ?
         WHERE idOfertas = ?;`;
 
-        db.query (sqlUpdate, [1, idArrendador, data.nombre, data.descripcion, data.precio, "1.png", "", data.idOfertas], (err, resQuery)=>{
+        db.query (sqlUpdate, [data.nombre, data.descripcion, data.precio, JSON.stringify(data.normasSeleccionadas), data.idOfertas], (err, resQuery)=>{
             //en caso de error
             
             if(err){
