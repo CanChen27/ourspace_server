@@ -191,7 +191,7 @@ exports.modificarProducto = (req, res)=>{
             //en caso de error
             
             if(err){
-                console.log(">>EEEEEEEEEEEEEEEEEEERRRRR: ", err);
+                console.log(">>Error: ", err);
                 return res.cc(err);
             } 
 
